@@ -49,15 +49,6 @@ case 'dev':
 	$wp_home = 'http://dev.example.com';
 	$wp_siteurl = 'http://dev.example.com';
 
-	/*
-		On some webhosting configurations, Wordpress automatic updates fail. Try the FTP method should work.
-	*/
-
-	define('FS_METHOD', 'ftpext');
-	define('FTP_USER', 'YOUR FTP LOGIN');
-	define('FTP_PASS', 'YOUR FTP PASSWORD');
-	define('FTP_HOST', 'YOUR FTP HOST (without http:// or ftp://)');
-	define('FTP_SSL', false);
 	break;
 
 case 'live':
@@ -77,8 +68,10 @@ case 'live':
 
 	$wp_home = 'http://www.example.com';
 	$wp_siteurl = 'http://www.example.com';
+	
 	/*
 		On some webhosting configurations, Wordpress automatic updates fail. Try the FTP method should work.
+		If still a no-go, see: http://codex.wordpress.org/Editing_wp-config.php#Override_of_default_file_permissions for alternative methods.
 	*/
 
 	define('FS_METHOD', 'ftpext');
