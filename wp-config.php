@@ -5,8 +5,8 @@
 
 	All useful wordpress globals in a wp-config.php, ready for a new project. Set your variables and just remove what you don't need.
 
-	author: Alexandre Plennevaux _ alexandre@pixeline.be
-	
+	author: Alexandre Plennevaux _ alexandre@pixeline.be _ http://pixeline.be
+
 	read the doc: http://codex.wordpress.org/Editing_wp-config.php
 
 
@@ -35,6 +35,9 @@ case 'dev':
 	define('WP_CACHE', false);
 	define('WP_DEBUG', true);
 	define('WP_POST_REVISIONS', false );
+	/*
+		The SAVEQUERIES definition saves the database queries to an array and that array can be displayed to help analyze those queries. The information saves each query, what function called it, and how long that query took to execute. See http://codex.wordpress.org/Editing_wp-config.php on how to use it.
+	*/
 	define('SAVEQUERIES', true);
 
 	$customer['dbname']= 'DATABASE NAME';
@@ -62,8 +65,9 @@ case 'live':
 	// PRODUCTION SERVER. OPTIMIZE FOR SPEED.
 	define('WP_CACHE', true);
 	define('WP_DEBUG', false);
+	
+	// authors will be able to go back up to X earlier versions of their posts if they need to.
 	define('WP_POST_REVISIONS', 2);
-	define('SAVEQUERIES', false);
 
 	$customer['dbname']= 'DATABASE NAME';
 	$customer['dbuser']='DATABASE USER';
@@ -135,13 +139,11 @@ define( 'UPLOADS', '/blog/wp-content/uploads' );
 
 
 /**#@+
- * Clefs uniques d'authentification et salage.
+ * Authentication Unique Keys and Salts.
  *
- * Remplacez les valeurs par défaut par des phrases uniques !
- * Vous pouvez générer des phrases aléatoires en utilisant
- * {@link https://api.wordpress.org/secret-key/1.1/salt/ le service de clefs secrètes de WordPress.org}.
- * Vous pouvez modifier ces phrases à n'importe quel moment, afin d'invalider tous les cookies existants.
- * Cela forcera également tous les utilisateurs à se reconnecter.
+ * Change these to different unique phrases!
+ * You can generate these using the {@link https://api.wordpress.org/secret-key/1.1/salt/ WordPress.org secret-key service}
+ * You can change these at any point in time to invalidate all existing cookies. This will force all users to have to log in again.
  *
  * @since 2.6.0
  */
@@ -155,12 +157,13 @@ define('LOGGED_IN_SALT',   'put something here');
 define('NONCE_SALT',       'put something here');
 /**#@-*/
 
+/**#@-*/
+
 /**
- * Préfixe de base de données pour les tables de WordPress.
+ * WordPress Database Table prefix.
  *
- * Vous pouvez installer plusieurs WordPress sur une seule base de données
- * si vous leur donnez chacune un préfixe unique.
- * N'utilisez que des chiffres, des lettres non-accentuées, et des caractères soulignés!
+ * You can have multiple installations in one database if you give each a unique
+ * prefix. Only numbers, letters, and underscores please!
  */
 $table_prefix  = $customer['db_prefix'];
 
@@ -185,20 +188,25 @@ define( 'CONCATENATE_SCRIPTS', false );
  */
 
 if (WP_DEBUG) {
-
-	// Log file is in wp-content/debug.log
 	error_reporting(E_ALL | E_WARNING |  E_ERROR);
-	define('WP_DEBUG_LOG', true);
+	// display errors
+	@ini_set('log_errors','Off');
+	@ini_set('display_errors','On');
+	define('WP_DEBUG_LOG', false);
 	define('WP_DEBUG_DISPLAY', true);
-	@ini_set('display_errors',1);
+}else{
+	error_reporting(E_WARNING | E_ERROR);
+	// log errors in a file (wp-content/debug.log), don't show them to end-users.
+	@ini_set('log_errors','On');
+	@ini_set('display_errors','Off');
+	define('WP_DEBUG_LOG', true);
+	define('WP_DEBUG_DISPLAY', false);
 }
 
+/*  -------------------------- STOP EDITING PAST THIS POINT  --------------------- */
 
-/* C'est tout, ne touchez pas à ce qui suit ! Bon blogging ! */
 
 /** Chemin absolu vers le dossier de WordPress. */
 if ( !defined('ABSPATH') )
 	define('ABSPATH', dirname(__FILE__) . '/');
-
-/** Réglage des variables de WordPress et de ses fichiers inclus. */
 require_once(ABSPATH . 'wp-settings.php');
