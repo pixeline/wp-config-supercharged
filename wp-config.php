@@ -17,7 +17,11 @@
 	MEMORY ALLOCATED TO WORDPRESS _ useful if your site shows many 500 errors and when allowing heavy file uploads. default : 32M
 */
 define('WP_MEMORY_LIMIT', '256M');
-setlocale(LC_ALL, 'fr_FR');
+
+// Increase memory in the admin area specifically
+define('WP_MAX_MEMORY_LIMIT', '256M');
+
+
 
 
 
@@ -166,6 +170,8 @@ $table_prefix  = $customer['db_prefix'];
 
 define('WPLANG', 'fr_FR');
 
+// Useful to localize the global php environment, not just wordpress functions.
+setlocale(LC_ALL, 'fr_FR');
 
 /*
 		AUTOSAVE INTERVAL
