@@ -63,7 +63,9 @@ case 'live':
 	
 	// authors will be able to go back up to X earlier versions of their posts if they need to.
 	define('WP_POST_REVISIONS', 2);
-
+	define('AUTOSAVE_INTERVAL', 150); // in seconds
+	define('EMPTY_TRASH_DAYS', 7); // in days (use 0 to disable trash)
+	
 	$customer['dbname']= 'DATABASE NAME';
 	$customer['dbuser']='DATABASE USER';
 	$customer['pass']='DB PASSWORD';
