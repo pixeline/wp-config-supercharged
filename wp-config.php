@@ -22,9 +22,6 @@ define('WP_MEMORY_LIMIT', '256M');
 define('WP_MAX_MEMORY_LIMIT', '256M');
 
 
-
-
-
 /*
 	SWITCH BETWEEN YOUR DEV AND YOUR PRODUCTION SERVER _ damn useful.
 */
@@ -39,19 +36,22 @@ case 'dev':
 	define('WP_CACHE', false);
 	define('WP_DEBUG', true);
 	define('WP_POST_REVISIONS', false );
+	define('AUTOSAVE_INTERVAL', 150); // in seconds
+	define('EMPTY_TRASH_DAYS', 7); // in days (use 0 to disable trash)
 	/*
 		The SAVEQUERIES definition saves the database queries to an array and that array can be displayed to help analyze those queries. The information saves each query, what function called it, and how long that query took to execute. See http://codex.wordpress.org/Editing_wp-config.php on how to use it.
 	*/
-	define('SAVEQUERIES', true);
+	define('SAVEQUERIES', false);
 
-	$customer['dbname']= 'DATABASE NAME';
-	$customer['dbuser']='DATABASE USER';
-	$customer['pass']='DB PASSWORD';
+	$customer['dbname']= 'DATABASE_NAME';
+	$customer['dbuser']='DATABASE_USER';
+	$customer['pass']='DB_PASSWORD';
 	$customer['dbhost']='localhost';
 
 	$customer['db_prefix']  = 'cstmr_';  // default wp_ again. Don't make it too easy for hackers to know you're using wordpress.
-	$wp_home = 'http://dev.example.com';
-	$wp_siteurl = 'http://dev.example.com';
+	$customer['cookie_domain'] = 'customer.dev';
+	$customer['wp_home'] = 'http://'.$customer['cookie_domain'];
+	$customer['wp_siteurl'] = 'http://'.$customer['cookie_domain'];
 
 	break;
 
@@ -60,21 +60,22 @@ case 'live':
 	// PRODUCTION SERVER. OPTIMIZE FOR SPEED.
 	define('WP_CACHE', true);
 	define('WP_DEBUG', false);
-	
+
 	// authors will be able to go back up to X earlier versions of their posts if they need to.
 	define('WP_POST_REVISIONS', 2);
 	define('AUTOSAVE_INTERVAL', 150); // in seconds
 	define('EMPTY_TRASH_DAYS', 7); // in days (use 0 to disable trash)
-	
-	$customer['dbname']= 'DATABASE NAME';
-	$customer['dbuser']='DATABASE USER';
-	$customer['pass']='DB PASSWORD';
+
+	$customer['dbname']= 'DATABASE_NAME';
+	$customer['dbuser']='DATABASE_USER';
+	$customer['pass']='DB_PASSWORD';
 	$customer['dbhost'] ='localhost';
 	$customer['db_prefix']  = 'cstmr_';
 
-	$wp_home = 'http://www.example.com';
-	$wp_siteurl = 'http://www.example.com';
-	
+	$customer['cookie_domain'] = 'customer.com';
+	$customer['wp_home'] = 'http://'.$customer['cookie_domain'];
+	$customer['wp_siteurl'] = 'http://'.$customer['cookie_domain'];
+
 	/*
 		On some webhosting configurations, Wordpress automatic updates fail. Try the FTP method should work.
 		If still a no-go, see: http://codex.wordpress.org/Editing_wp-config.php#Override_of_default_file_permissions for alternative methods.
@@ -99,13 +100,13 @@ define('DB_HOST', $customer['dbhost']);
 /*
 	WORDPRESS HOME URLS _ (no need to make these changeable via WP-ADMIN.)
 */
-define('WP_HOME', $wp_home);
-define('WP_SITEURL', $wp_siteurl);
+define('WP_HOME', $customer['wp_home']);
+define('WP_SITEURL', $customer['wp_siteurl']);
 
 /*
 		The domain set in the cookies for WordPress can be specified for those with unusual domain setups. One reason is if subdomains are used to serve static content. To prevent WordPress cookies from being sent with each request to static content on your subdomain you can set the cookie domain to your non-static domain only.
 	*/
-define('COOKIE_DOMAIN', 'example.com');
+define('COOKIE_DOMAIN', $customer['cookie_domain']);
 
 /*
 	WORDPRESS CHARACTER SET _
@@ -121,13 +122,13 @@ define('DB_COLLATE', '');
 /*
 	Moving wp-content folder
 */
-define( 'WP_CONTENT_DIR', $_SERVER['DOCUMENT_ROOT'] . '/blog/wp-content' );
-define( 'WP_CONTENT_URL', 'http://example/blog/wp-content');
+define( 'WP_CONTENT_DIR', $_SERVER['DOCUMENT_ROOT'] . '/wp-content' );
+define( 'WP_CONTENT_URL', WP_SITEURL.'/wp-content');
 /*
 	Moving plugins folder
 */
-define( 'WP_PLUGIN_DIR', $_SERVER['DOCUMENT_ROOT'] . '/blog/wp-content/plugins' );
-define( 'WP_PLUGIN_URL', 'http://example/blog/wp-content/plugins');
+define( 'WP_PLUGIN_DIR', $_SERVER['DOCUMENT_ROOT'] . '/wp-content/plugins' );
+define( 'WP_PLUGIN_URL', WP_SITEURL.'/wp-content/plugins');
 // For compatibility with old plugins.
 define( 'PLUGINDIR',  WP_PLUGIN_DIR );
 
@@ -175,10 +176,6 @@ define('WPLANG', 'fr_FR');
 // Useful to localize the global php environment, not just wordpress functions.
 setlocale(LC_ALL, 'fr_FR');
 
-/*
-		AUTOSAVE INTERVAL
-	*/
-define('AUTOSAVE_INTERVAL', 160 );
 
 // Faster administration area by disabling Javascript Concatenation
 define( 'CONCATENATE_SCRIPTS', false );
