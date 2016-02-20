@@ -65,7 +65,7 @@ default:
 	/***************************************
 	PRODUCTION SERVER. OPTIMIZED FOR SPEED.
 	****************************************/
-	define('WP_CACHE', false);
+	define('WP_CACHE', true);
 	define('WP_DEBUG', false);
 	define('SAVEQUERIES', false);
 	define( 'SCRIPT_DEBUG', false);
@@ -73,7 +73,7 @@ default:
 	// log errors in a file (wp-content/debug.log), don't show them to end-users.
 	define('WP_DEBUG_LOG', true);
 	define('WP_DEBUG_DISPLAY', false);
-
+	define('ENFORCE_GZIP', true);
 	// DATABASE
 	define('DB_NAME', 'DATABASE_NAME');
 	define('DB_USER', 'DATABASE_USER');
@@ -116,6 +116,8 @@ define('WPLANG', 'fr_FR');
 define('DB_CHARSET', 'utf8');
 define('DB_COLLATE', '');
 
+// define('WP_ALLOW_REPAIR', false); // Set to true to have WP repairs its database tables, refresh page, set back to false.
+
 // DIRECTORY CUSTOMIZATION
 // make it less obvious that your site is using wordpress.
 
@@ -145,6 +147,9 @@ if (PROTOCOL === 'https://'){
 	define( 'FORCE_SSL_LOGIN', true );
 	define( 'FORCE_SSL_ADMIN', true );
 }
+
+// If you don't plan to post via email, decrease this
+define('WP_MAIL_INTERVAL', 86400); // 1 day (instead of 5 minutes)
 
 
 /**#@+
