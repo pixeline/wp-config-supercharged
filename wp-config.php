@@ -219,6 +219,8 @@ define( 'DO_NOT_UPGRADE_GLOBAL_TABLES', true ); // Disable DB Tables auto-update
 */
 
 /*  -------------------------- STOP EDITING PAST THIS POINT  --------------------- */
+$table_prefix = TABLE_PREFIX;
+
 if(WP_DEBUG_LOG){
 	@ini_set('log_errors','On');
 }
