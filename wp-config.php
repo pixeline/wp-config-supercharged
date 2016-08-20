@@ -34,7 +34,7 @@ case 'local':
 	****************************************/
 
 	define('WP_CACHE', false);
-	define('WP_DEBUG', 'local');
+	define('WP_DEBUG', true);
 	define('SAVEQUERIES', false);
 	define('WP_DEBUG_LOG', false);
 	define('WP_DEBUG_DISPLAY', true);
