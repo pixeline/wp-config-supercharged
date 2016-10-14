@@ -221,12 +221,6 @@ define( 'DO_NOT_UPGRADE_GLOBAL_TABLES', true ); // Disable DB Tables auto-update
 /*  -------------------------- STOP EDITING PAST THIS POINT  --------------------- */
 $table_prefix = TABLE_PREFIX;
 
-if(WP_DEBUG_LOG){
-	@ini_set('log_errors','On');
-}
-if(WP_DEBUG_DISPLAY){
-	@ini_set('display_errors','On');
-}
 // Adapt your servers to the chosen locale.
 setlocale(LC_ALL, WPLANG);
 
