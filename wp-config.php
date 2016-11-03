@@ -225,7 +225,7 @@ $table_prefix = TABLE_PREFIX;
 setlocale(LC_ALL, WPLANG);
 
 // For compatibility with old plugins
-define( 'PLUGINDIR',  WP_PLUGIN_DIR );
+if (isset(WP_PLUGIN_DIR)) define( 'PLUGINDIR',  WP_PLUGIN_DIR );
 
 /** Absolute path to WordPress. */
 if ( !defined('ABSPATH') )
