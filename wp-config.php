@@ -194,8 +194,10 @@ define( 'NOBLOGREDIRECT', 'http://mainwebsite.com' );
 
 /*  ------------------------ OTHER CONSTANTS YOU COULD NEED  --------------------- */
 
-/*
+/* IF YOU ARE DOING AJAX, This line tells WordPress to load as little as possible */
+define( 'SHORTINIT', true );
 
+/*
 // MEMORY ALLOCATION
 define('WP_MEMORY_LIMIT', '32M');
 define('WP_MAX_MEMORY_LIMIT', '32M');  // Admin area specifically
